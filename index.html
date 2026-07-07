@@ -1,729 +1,96 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malbork – Aktualności z Malbork</title>
-    <meta name="description" content="Najnowsze aktualności, wiadomości lokalne i informacje z Malbork. Malbork – Twój lokalny serwis informacyjny.">
-    <meta name="keywords" content="Malbork, wiadomości Malbork, aktualności Malbork, lokalny serwis informacyjny">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --primary: #0d3b6e;
-            --primary-light: #1a5276;
-            --accent: #c0392b;
-            --text: #1a1a1a;
-            --text-muted: #6c757d;
-            --bg: #f4f5f7;
-            --white: #ffffff;
-            --border: #dde1e7;
-            --card-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        a { color: inherit; text-decoration: none; }
-        a:hover { color: var(--accent); }
-        img { max-width: 100%; display: block; }
-
-        /* TOP BAR */
-        .topbar {
-            background: var(--primary);
-            color: rgba(255,255,255,0.75);
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            padding: 6px 0;
-        }
-        .topbar-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .topbar a { color: rgba(255,255,255,0.75); }
-        .topbar a:hover { color: #fff; }
-
-        /* HEADER */
-        header {
-            background: var(--white);
-            border-bottom: 3px solid var(--primary);
-            padding: 18px 0 12px;
-        }
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-        .logo {
-            display: flex;
-            flex-direction: column;
-        }
-        .logo-name {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-            font-family: Arial, sans-serif;
-            line-height: 1;
-        }
-        .logo-name span { color: var(--accent); }
-        .logo-tagline {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-family: Arial, sans-serif;
-            margin-top: 3px;
-            letter-spacing: 0.5px;
-        }
-        .header-date {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: var(--text-muted);
-            text-align: right;
-        }
-
-        /* NAV */
-        nav {
-            background: var(--primary);
-        }
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 0;
-        }
-        nav a {
-            color: rgba(255,255,255,0.9);
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 12px 18px;
-            display: block;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            transition: background 0.2s;
-        }
-        nav a:hover, nav a.active {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        /* BREAKING NEWS */
-        .breaking {
-            background: var(--accent);
-            color: #fff;
-            padding: 8px 0;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-        }
-        .breaking-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .breaking-label {
-            background: rgba(0,0,0,0.25);
-            padding: 2px 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 11px;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-        }
-        .breaking-text { overflow: hidden; }
-
-        /* MAIN LAYOUT */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 20px;
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 28px;
-        }
-
-        /* SECTION HEADING */
-        .section-heading {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 6px;
-            margin-bottom: 18px;
-        }
-
-        /* FEATURED ARTICLE */
-        .featured {
-            background: var(--white);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 24px;
-        }
-        .featured-img {
-            width: 100%;
-            height: 380px;
-            background: linear-gradient(135deg, #1a3a5c 0%, #2e86c1 60%, #1a5276 100%);
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-        }
-        .featured-img-label {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--accent);
-            color: #fff;
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            letter-spacing: 0.5px;
-        }
-        .featured-img-overlay {
-            width: 100%;
-            padding: 28px 28px 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-        }
-        .featured-body { padding: 22px 28px 26px; }
-        .featured-category {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-        .featured-title {
-            font-size: 26px;
-            font-weight: 900;
-            line-height: 1.25;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-        .featured-excerpt {
-            font-size: 16px;
-            color: var(--text-muted);
-            line-height: 1.65;
-            margin-bottom: 16px;
-        }
-        .featured-meta {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: var(--text-muted);
-            display: flex;
-            gap: 16px;
-        }
-
-        /* ARTICLE GRID */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            margin-bottom: 24px;
-        }
-        .article-card {
-            background: var(--white);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-        }
-        .article-card-img {
-            width: 100%;
-            height: 160px;
-            position: relative;
-        }
-        .article-card-img-bg {
-            width: 100%;
-            height: 100%;
-        }
-        .article-card-body { padding: 16px; flex: 1; }
-        .article-card-category {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .article-card-title {
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-        .article-card-title:hover { color: var(--accent); }
-        .article-card-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: auto;
-            padding-top: 8px;
-        }
-
-        /* MORE ARTICLES */
-        .more-articles { margin-bottom: 8px; }
-        .more-article-item {
-            background: var(--white);
-            border-radius: 4px;
-            box-shadow: var(--card-shadow);
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-        .more-article-num {
-            font-family: Arial, sans-serif;
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--border);
-            line-height: 1;
-            min-width: 32px;
-        }
-        .more-article-title {
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.35;
-            color: var(--text);
-        }
-        .more-article-title:hover { color: var(--accent); }
-        .more-article-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        /* SIDEBAR */
-        .sidebar {}
-        .sidebar-widget {
-            background: var(--white);
-            border-radius: 4px;
-            box-shadow: var(--card-shadow);
-            padding: 20px;
-            margin-bottom: 22px;
-        }
-        .sidebar-widget-title {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-        }
-        .sidebar-news-item {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .sidebar-news-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .sidebar-news-title {
-            font-size: 14px;
-            font-weight: 700;
-            line-height: 1.35;
-            margin-bottom: 4px;
-        }
-        .sidebar-news-title:hover { color: var(--accent); }
-        .sidebar-news-meta {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        .sidebar-img {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, #0d3b6e, #2980b9);
-            border-radius: 4px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: rgba(255,255,255,0.6);
-        }
-        .about-text {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-        .weather-widget {
-            text-align: center;
-        }
-        .weather-city {
-            font-family: Arial, sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .weather-temp {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--primary);
-            line-height: 1;
-            font-family: Arial, sans-serif;
-        }
-        .weather-desc {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 6px;
-        }
-        .weather-icon { font-size: 36px; margin-bottom: 4px; }
-
-        /* FOOTER */
-        footer {
-            background: var(--primary);
-            color: rgba(255,255,255,0.8);
-            padding: 40px 0 20px;
-            margin-top: 20px;
-        }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            margin-bottom: 20px;
-        }
-        .footer-logo {
-            font-family: Arial, sans-serif;
-            font-size: 22px;
-            font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        .footer-logo span { color: var(--accent); }
-        .footer-desc {
-            font-size: 13px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.65);
-        }
-        .footer-col-title {
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #fff;
-            margin-bottom: 14px;
-        }
-        .footer-links { list-style: none; }
-        .footer-links li {
-            padding: 4px 0;
-            font-size: 13px;
-        }
-        .footer-links a {
-            color: rgba(255,255,255,0.65);
-        }
-        .footer-links a:hover { color: #fff; }
-        .footer-bottom {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: rgba(255,255,255,0.45);
-            text-align: center;
-        }
-
-        /* COLOR PALETTES FOR ARTICLE IMGS */
-        .img-blue   { background: linear-gradient(135deg, #1a3a5c 0%, #2e86c1 100%); }
-        .img-green  { background: linear-gradient(135deg, #1e6b3e 0%, #27ae60 100%); }
-        .img-purple { background: linear-gradient(135deg, #4a235a 0%, #8e44ad 100%); }
-        .img-orange { background: linear-gradient(135deg, #784212 0%, #e67e22 100%); }
-        .img-teal   { background: linear-gradient(135deg, #0e5460 0%, #1abc9c 100%); }
-        .img-red    { background: linear-gradient(135deg, #6e0d0d 0%, #c0392b 100%); }
-
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-            .articles-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-            nav a { padding: 10px 12px; font-size: 12px; }
-            .featured-img { height: 240px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Film i rozrywka - świat kina i sztuki audiowizualnej</title>
+<style>
+    body {
+        font-family: 'Georgia', serif;
+        background-color: #f4f1ec;
+        color: #2c2c2c;
+        line-height: 1.7;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: #fff;
+        padding: 40px 20px;
+        text-align: center;
+    }
+    h1 {
+        font-size: 2.6em;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+    main {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px 30px;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+    h2 {
+        color: #16213e;
+        border-bottom: 2px solid #e94560;
+        padding-bottom: 6px;
+        margin-top: 35px;
+    }
+    p {
+        text-align: justify;
+        margin-bottom: 15px;
+    }
+    footer {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-size: 0.9em;
+    }
+</style>
 </head>
 <body>
-
-<div class="topbar">
-    <div class="topbar-inner">
-        <span id="topbar-date">Poniedziałek, 23 czerwca 2025</span>
-        <span>
-            <a href="#">Kontakt</a> &nbsp;|&nbsp;
-            <a href="#">Newsletter</a> &nbsp;|&nbsp;
-            <a href="#">Reklama</a>
-        </span>
-    </div>
-</div>
-
 <header>
-    <div class="header-inner">
-        <div class="logo">
-            <a href="/">
-                <div class="logo-name">Malbork<span></span></div>
-                <div class="logo-tagline">Lokalny serwis informacyjny &bull; Malbork</div>
-            </a>
-        </div>
-        <div class="header-date" id="header-date">
-            Twój lokalny portal informacyjny
-        </div>
-    </div>
+    <h1>Film i rozrywka – fascynujący świat kina i sztuki audiowizualnej</h1>
 </header>
+<main>
 
-<nav>
-    <div class="nav-inner">
-        <a href="#" class="active">Aktualności</a>
-        <a href="#">Miasto</a>
-        <a href="#">Sport</a>
-        <a href="#">Kultura</a>
-        <a href="#">Gospodarka</a>
-        <a href="#">Społeczeństwo</a>
-        <a href="#">Kontakt</a>
-    </div>
-</nav>
+<h2>Historia kina – od czarno-białych obrazów do cyfrowej rewolucji</h2>
+<p>Film jest jednym z najmłodszych rodzajów sztuki, a mimo to zdołał w ciągu zaledwie stu kilkunastu lat zdobyć serca widzów na całym świecie i stać się jednym z najpotężniejszych mediów kulturowych naszej epoki. Za symboliczną datę narodzin kina uznaje się 28 grudnia 1895 roku, kiedy to bracia Auguste i Louis Lumière zaprezentowali w paryskim Grand Café pierwszy publiczny pokaz filmowy. Krótkie, kilkudziesięciosekundowe obrazy przedstawiające wyjście robotników z fabryki czy wjazd pociągu na stację La Ciotat wywołały u pierwszych widzów prawdziwy szok, a niektórzy w panice uciekali z sali, przekonani, że lokomotywa zaraz ich stratuje.</p>
 
-<div class="breaking">
-    <div class="breaking-inner">
-        <span class="breaking-label">Pilne</span>
-        <span class="breaking-text">Burmistrz Malbork ogłasza nowe inwestycje w infrastrukturę miejską &nbsp;•&nbsp; Wyniki wyborów do Rady Miejskiej &nbsp;•&nbsp; Nowy rok szkolny – zmiany w organizacji ruchu przy szkołach</span>
-    </div>
-</div>
+<p>Kolejne dekady przyniosły niezwykły rozwój techniki filmowej. Pojawiły się filmy dźwiękowe – przełomem był "Śpiewak jazzbandu" z 1927 roku – następnie kolor, format panoramiczny, a w końcu efekty specjalne wykorzystujące techniki komputerowe. Wraz z rozwojem technologii cyfrowej i platform streamingowych, takich jak Netflix, HBO Max czy Disney+, kino weszło w zupełnie nowy etap swojego istnienia. Widz nie musi już wychodzić z domu, aby obejrzeć najnowsze produkcje, a jednocześnie sale kinowe wciąż przyciągają miłośników wspólnego przeżywania emocji na wielkim ekranie.</p>
+<p><a href="https://mamaipapawpraktyce.pl">mamaipapawpraktyce.pl</a></p>
 
-<div class="container">
-    <!-- MAIN CONTENT -->
-    <main>
-        <div class="section-heading">Najważniejsze</div>
+<h2>Gatunki filmowe – bogactwo form i emocji</h2>
+<p><a href="https://dziennikopole.pl">dziennikopole.pl</a></p>
+<p>Świat filmu jest niezwykle różnorodny, a jego bogactwo doskonale odzwierciedla podział na gatunki. Dramat pozwala widzowi zanurzyć się w skomplikowanych relacjach międzyludzkich i głębokich problemach egzystencjalnych, oferując przy tym często wybitne kreacje aktorskie. Komedia z kolei jest ratunkiem po ciężkim dniu – rozśmiesza, relaksuje i pomaga oderwać się od codziennych trosk. Filmy akcji dostarczają adrenaliny, a thrillery i horrory sprawiają, że serce bije szybciej, a widz nie może oderwać wzroku od ekranu.</p>
 
-        <article class="featured">
-            <div class="featured-img img-blue">
-                <div class="featured-img-label">Wyróżnione</div>
-                <div class="featured-img-overlay"></div>
-            </div>
-            <div class="featured-body">
-                <div class="featured-category">Miasto &bull; Aktualności</div>
-                <h1 class="featured-title"><a href="#">Wielka modernizacja centrum Malbork – znamy szczegóły nowego projektu rewitalizacji</a></h1>
-                <p class="featured-excerpt">Władze miasta przedstawiły ambitny plan przebudowy ścisłego centrum. Projekt obejmuje remont chodników, nowe nasadzenia zieleni, modernizację oświetlenia oraz budowę stref rekreacyjnych. Prace mają ruszyć wiosną przyszłego roku i potrwać do końca 2026.</p>
-                <div class="featured-meta">
-                    <span>23 czerwca 2025</span>
-                    <span>Redakcja Malbork</span>
-                    <span>5 min czytania</span>
-                </div>
-            </div>
-        </article>
+<p>Osobne miejsce zajmują filmy fantastyczne i science fiction, które przenoszą nas do światów wyobraźni, pozwalając marzyć o odległych galaktykach, magicznych krainach i technologiach przyszłości. Kultowe sagi, takie jak "Gwiezdne wojny", "Władca Pierścieni" czy uniwersum Marvela, zbudowały prawdziwe społeczności fanów na całym świecie. Nie można zapomnieć również o filmach dokumentalnych, które łączą wartość edukacyjną z artystyczną wizją, ukazując rzeczywistość w sposób poruszający i skłaniający do refleksji nad światem, w którym żyjemy.</p>
+<p><a href="https://krakowinfo24.github.io/stargard.github.io/">krakowinfo24.github.io/stargard.github.io/</a></p>
 
-        <div class="section-heading">Wiadomości lokalne</div>
+<h2>Polska kinematografia – powody do dumy</h2>
+<p><a href="https://zyciepoznania.pl">zyciepoznania.pl</a></p>
+<p>Polska szkoła filmowa cieszy się na świecie ogromnym uznaniem, a jej twórcy wielokrotnie zdobywali najbardziej prestiżowe nagrody, w tym Oscary, Złote Palmy w Cannes czy Lwy w Wenecji. Andrzej Wajda, Krzysztof Kieślowski, Roman Polański, Krzysztof Zanussi czy Agnieszka Holland to nazwiska, które na trwałe wpisały się do kanonu światowego kina. Filmy takie jak "Popiół i diament", "Dekalog", "Pianista", "Ida" czy "Zimna wojna" pokazują, że polskie kino potrafi łączyć głęboką refleksję historyczną i moralną z wysokim poziomem artystycznym.</p>
+<p><a href="https://krakowinfo24.github.io/brzeg.github.io/">krakowinfo24.github.io/brzeg.github.io/</a></p>
 
-        <div class="articles-grid">
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-green" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Sport</div>
-                    <h2 class="article-card-title"><a href="#">Lokalna drużyna awansuje do wyższej ligi – mieszkańcy świętują sukces</a></h2>
-                    <div class="article-card-meta">22 czerwca 2025 &bull; Sport</div>
-                </div>
-            </article>
+<p>Współczesne polskie kino również rozwija się dynamicznie. Twórcy młodszego pokolenia, tacy jak Paweł Pawlikowski, Jan Komasa czy Małgorzata Szumowska, zdobywają uznanie międzynarodowej krytyki. Rośnie także popularność polskich seriali, które dzięki platformom streamingowym docierają do widzów w wielu krajach. Produkcje takie jak "1983", "Wataha" czy "Rojst" pokazują, że jesteśmy w stanie tworzyć treści na najwyższym światowym poziomie, umiejętnie łącząc lokalny koloryt z uniwersalnymi tematami.</p>
+<p><a href="https://mamaipapablog.pl">mamaipapablog.pl</a></p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-purple" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Kultura</div>
-                    <h2 class="article-card-title"><a href="#">Festiwal Kulturalny Malbork 2025 – program i bilety już dostępne</a></h2>
-                    <div class="article-card-meta">21 czerwca 2025 &bull; Kultura</div>
-                </div>
-            </article>
+<h2>Rozrywka w erze cyfrowej – nowe formy zabawy</h2>
+<p>Rozrywka w XXI wieku wykroczyła daleko poza tradycyjne ramy telewizji i kina. Ogromne znaczenie zyskały gry komputerowe, które stały się pełnoprawną formą sztuki, oferując rozbudowane fabuły, wybitną oprawę muzyczną i angażujące doświadczenia interaktywne. Polska branża gier – z takimi tytułami jak "Wiedźmin 3: Dziki Gon" czy "Cyberpunk 2077" – jest wizytówką naszego kraju na całym świecie. Coraz większą popularność zyskuje także e-sport, którego turnieje przyciągają miliony widzów, a najlepsi zawodnicy zarabiają fortuny porównywalne z gwiazdami tradycyjnego sportu.</p>
+<p><a href="https://hurtowezakupy.pl">hurtowezakupy.pl</a></p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-orange" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Gospodarka</div>
-                    <h2 class="article-card-title"><a href="#">Nowe miejsca pracy w Malbork – duży inwestor wchodzi na rynek lokalny</a></h2>
-                    <div class="article-card-meta">20 czerwca 2025 &bull; Gospodarka</div>
-                </div>
-            </article>
+<p>Ogromnym fenomenem stały się również platformy streamingowe do transmisji na żywo, takie jak Twitch czy YouTube, gdzie twórcy dzielą się swoją pasją do gier, muzyki czy rozmów z widzami. Media społecznościowe, w tym TikTok i Instagram, stworzyły nowy typ celebrytów – influencerów, którzy potrafią dotrzeć do milionowej publiczności bez pośrednictwa wielkich koncernów medialnych. Zmienia się także sposób słuchania muzyki – serwisy takie jak Spotify czy Apple Music dają dostęp do praktycznie nieograniczonej biblioteki utworów, a algorytmy sztucznej inteligencji podpowiadają nam nowe brzmienia dopasowane do naszych upodobań.</p>
+<p><a href="https://naszezyciewmiescie.pl">naszezyciewmiescie.pl</a></p>
 
-            <article class="article-card">
-                <div class="article-card-img">
-                    <div class="article-card-img-bg img-teal" style="height:160px;"></div>
-                </div>
-                <div class="article-card-body">
-                    <div class="article-card-category">Społeczeństwo</div>
-                    <h2 class="article-card-title"><a href="#">Nowe ścieżki rowerowe w Malbork – kiedy otwarcie i gdzie przebiegają?</a></h2>
-                    <div class="article-card-meta">19 czerwca 2025 &bull; Społeczeństwo</div>
-                </div>
-            </article>
-        </div>
+<h2>Znaczenie kultury filmowej dla społeczeństwa</h2>
+<p>Film i rozrywka pełnią w naszym życiu funkcje znacznie głębsze niż tylko dostarczanie przyjemności. Kino kształtuje wrażliwość estetyczną, uczy empatii, pozwala poznawać obce kultury i przeżywać emocje, których w codziennym życiu być może nigdy byśmy nie doświadczyli. Wielkie dzieła filmowe potrafią zmieniać sposób myślenia widzów, wpływać na debatę publiczną, a nawet inicjować realne zmiany społeczne. Filmy o tematyce historycznej pomagają zachować pamięć o ważnych wydarzeniach, a dokumenty ukazują problemy, o których często wolimy nie myśleć.</p>
 
-        <div class="section-heading">Więcej wiadomości</div>
+<p>Rozrywka jest również ważnym elementem spajającym społeczności. Wspólne oglądanie ulubionego serialu, dyskusje o najnowszych premierach czy udział w festiwalach filmowych, takich jak Camerimage w Toruniu czy Nowe Horyzonty we Wrocławiu, budują więzi między ludźmi o podobnych zainteresowaniach. W dobie rosnącego tempa życia i wszechobecnego stresu potrzeba wartościowej rozrywki jest większa niż kiedykolwiek, a odpowiednio dobrany film czy serial może być nie tylko odpoczynkiem, ale i formą terapii oraz źródłem inspiracji do własnego rozwoju.</p>
 
-        <div class="more-articles">
-            <div class="more-article-item">
-                <div class="more-article-num">1</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Przebudowa ul. Głównej w Malbork – utrudnienia w ruchu przez kolejne tygodnie</a></div>
-                    <div class="more-article-meta">23 czerwca 2025 &bull; Miasto</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">2</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Szkoły w Malbork podsumowują rok szkolny 2024/2025 – wyniki i statystyki</a></div>
-                    <div class="more-article-meta">22 czerwca 2025 &bull; Edukacja</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">3</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Jarmark Letni na Rynku – tłumy mieszkańców na corocznej imprezie</a></div>
-                    <div class="more-article-meta">21 czerwca 2025 &bull; Kultura</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">4</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Zmiany w rozkładzie jazdy autobusów miejskich od 1 lipca 2025</a></div>
-                    <div class="more-article-meta">20 czerwca 2025 &bull; Komunikacja</div>
-                </div>
-            </div>
-            <div class="more-article-item">
-                <div class="more-article-num">5</div>
-                <div>
-                    <div class="more-article-title"><a href="#">Nowe oblicze Parku Miejskiego – zakończono remont i otwarcie dla zwiedzających</a></div>
-                    <div class="more-article-meta">18 czerwca 2025 &bull; Miasto</div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">Popularne dziś</div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Wyniki matur 2025 – jak wypadli uczniowie z Malbork?</a></div>
-                <div class="sidebar-news-meta">23 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Targi pracy w Malbork – setki ofert dla bezrobotnych</a></div>
-                <div class="sidebar-news-meta">22 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Nowe połączenie kolejowe z Malbork do Warszawy</a></div>
-                <div class="sidebar-news-meta">21 czerwca 2025</div>
-            </div>
-            <div class="sidebar-news-item">
-                <div class="sidebar-news-title"><a href="#">Pożar w centrum – straż pożarna szybko opanowała ogień</a></div>
-                <div class="sidebar-news-meta">20 czerwca 2025</div>
-            </div>
-        </div>
-
-        <div class="sidebar-widget weather-widget">
-            <div class="sidebar-widget-title">Pogoda w Malbork</div>
-            <div class="weather-icon">⛅</div>
-            <div class="weather-city">Malbork</div>
-            <div class="weather-temp">21°C</div>
-            <div class="weather-desc">Częściowe zachmurzenie &bull; Poniedziałek</div>
-        </div>
-
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">O nas</div>
-            <div class="sidebar-img">Malbork</div>
-            <p class="about-text">Malbork to niezależny lokalny serwis informacyjny poświęcony wiadomościom z Malbork i regionu. Dostarczamy rzetelne informacje dla mieszkańców od 2020 roku.</p>
-        </div>
-
-        <div class="sidebar-widget">
-            <div class="sidebar-widget-title">Kontakt</div>
-            <div style="font-size:13px; color: var(--text-muted); line-height:2;">
-                <div>📧 redakcja@malbork.github.io</div>
-                <div>📞 +48 34 XXX XX XX</div>
-                <div>📍 Malbork, ul. Redakcyjna 1</div>
-            </div>
-        </div>
-    </aside>
-</div>
-
+</main>
 <footer>
-    <div class="footer-inner">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-logo">Malbork<span></span></div>
-                <p class="footer-desc">Lokalny serwis informacyjny Malbork. Najnowsze wiadomości, aktualności lokalne, sport, kultura i gospodarka. Bądź na bieżąco z tym, co dzieje się w Twoim mieście.</p>
-            </div>
-            <div>
-                <div class="footer-col-title">Działy</div>
-                <ul class="footer-links">
-                    <li><a href="#">Aktualności</a></li>
-                    <li><a href="#">Miasto</a></li>
-                    <li><a href="#">Sport</a></li>
-                    <li><a href="#">Kultura</a></li>
-                    <li><a href="#">Gospodarka</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-col-title">Informacje</div>
-                <ul class="footer-links">
-                    <li><a href="#">O redakcji</a></li>
-                    <li><a href="#">Kontakt</a></li>
-                    <li><a href="#">Reklama</a></li>
-                    <li><a href="#">Polityka prywatności</a></li>
-                    <li><a href="#">Regulamin</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; <span id="footer-year">2025</span> Malbork. Wszelkie prawa zastrzeżone.
-        </div>
-    </div>
+    <p>© 2024 Świat filmu i rozrywki – wszystkie prawa zastrzeżone</p>
 </footer>
-
-<script>
-    const now = new Date();
-    const days = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'];
-    const months = ['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','września','października','listopada','grudnia'];
-    document.getElementById('topbar-date').textContent =
-        days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-    document.getElementById('footer-year').textContent = now.getFullYear();
-</script>
-
 </body>
 </html>
